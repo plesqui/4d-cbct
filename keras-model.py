@@ -1,3 +1,24 @@
+import tensorflow as tf
+import numpy as np
+from keras import layers
+from keras import losses
+from keras import optimizers
+from keras.layers import Input, Add, Lambda, Concatenate, Dense, Activation, ZeroPadding2D, BatchNormalization, Flatten, Conv2D, AveragePooling2D, MaxPooling2D, GlobalMaxPooling2D, Conv2DTranspose
+from keras.layers.advanced_activations import LeakyReLU, PReLU
+from keras.initializers import he_normal
+from keras.callbacks import ModelCheckpoint
+from keras.callbacks import CSVLogger
+from keras.models import Model, load_model
+from keras.preprocessing import image
+from keras.utils import layer_utils
+from keras.utils.data_utils import get_file
+from keras.applications.imagenet_utils import preprocess_input
+from IPython.display import SVG
+from keras.utils.vis_utils import model_to_dot
+from keras.utils import plot_model
+from keras.initializers import glorot_uniform
+import keras.backend as K
+
 # The building blocks of the network: 
 
 def identity_down(X, f, filters, block):

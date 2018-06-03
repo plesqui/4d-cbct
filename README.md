@@ -29,4 +29,4 @@ The figure above illustrates the performance of our prototype on images from the
 Currently, we are working on the following research questions:
 1) What is the optimum loss-fuction? To this end, we are evaluating the performance of our model with the mean-squared error, the absolute error and the structural similarity index metric as loss-functions.
 
-2) Our prototype is built to improve the reconstructed images. Can we build a deep learning model that improves the measured projection data (i.e., the sinograms)? How does the performance of such model compares to our current prototype?
+2) Our prototype was built to improve the quality of the reconstructed images. Can we build a deep learning model that improves the measured projection data instead (i.e., the sinograms)? How does the performance of such model compares to the performance of our current prototype?

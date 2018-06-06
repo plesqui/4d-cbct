@@ -48,13 +48,11 @@ def identity_down(X, f, filters, block):
     # First component
     X = Conv2D(filters = F1, kernel_size = (f, f), strides = (1, 1), padding = 'same', name = conv_name_base + 'A', kernel_initializer = he_normal())(X)
     X = LeakyReLU()(X)
-    #X = Activation('relu')(X)
     X = BatchNormalization(axis = 3, name = bn_name_base + 'A')(X)
     
     # Second component
     X = Conv2D(filters = F2, kernel_size = (f, f), strides = (1, 1), padding = 'same', name = conv_name_base + 'B', kernel_initializer = he_normal())(X)
     X = LeakyReLU()(X)
-    #X = Activation('relu')(X)
     X = BatchNormalization(axis = 3, name = bn_name_base + 'B')(X)
     
     # Store Features to be transferred to the corresponding layer in the upward pass of the U-NET
@@ -63,7 +61,6 @@ def identity_down(X, f, filters, block):
     # Third component to down-sample the net (we keep the same filter as in the previous conv-layer)
     X = Conv2D(filters = F2, kernel_size = (2, 2), strides = (2, 2), padding = 'valid', name = conv_name_base + 'C', kernel_initializer = he_normal())(X)
     X = LeakyReLU()(X)
-    #X = Activation('leakyRelu')(X)
     X = BatchNormalization(axis = 3, name = bn_name_base + 'C')(X)
     
     return X, X_shortcut
@@ -95,21 +92,17 @@ def bottom(X, f, filters, block):
     # First component
     X = Conv2D(filters = F1, kernel_size = (f, f), strides = (1, 1), padding = 'same', name = conv_name_base + 'A', kernel_initializer = he_normal())(X)   
     X = LeakyReLU()(X)
-    #X = Activation('leakyRelu')(X)
     X = BatchNormalization(axis = 3, name = bn_name_base + 'A')(X)
     
     # Second component
     X = Conv2D(filters = F2, kernel_size = (f, f), strides = (1, 1), padding = 'same', name = conv_name_base + 'B', kernel_initializer = he_normal())(X)
     X = LeakyReLU()(X)
-    #X = Activation('leakyRelu')(X)
     X = BatchNormalization(axis = 3, name = bn_name_base + 'B')(X)
     
     # Third component: Resize features by a factor of 2 using Nearest Neighbor + 2DConvolution
     X = Lambda(resize_img)(X)
-    #X = K.resize_images(X, 2, 2, 'channels_last')
     X = Conv2D(filters = F3, kernel_size = (f, f), strides = (1, 1), padding = 'same', name = conv_name_base + 'C', kernel_initializer = he_normal())(X)  
     X = LeakyReLU()(X)
-    #X = Activation('leakyRelu')(X)
     X = BatchNormalization(axis = 3, name = bn_name_base + 'C')(X)
     
     return X
@@ -144,22 +137,18 @@ def identity_up(X, X_shortcut, f, filters, block):
     # First component
     X = Conv2D(filters = F1, kernel_size = (f, f), strides = (1, 1), padding = 'same', name = conv_name_base + 'A', kernel_initializer = he_normal())(X)
     X = LeakyReLU()(X)
-    #X = Activation('leakyRelu')(X)
     X = BatchNormalization(axis = 3, name = bn_name_base + 'A')(X)
     
     # Second component
     X = Conv2D(filters = F2, kernel_size = (f, f), strides = (1, 1), padding = 'same', name = conv_name_base + 'B', kernel_initializer = he_normal())(X)
     X = LeakyReLU()(X)
-    #X = Activation('leakyRelu')(X)
     X = BatchNormalization(axis = 3, name = bn_name_base + 'B')(X)
 
     
     # Third component: Resize features by a factor of 2 using Nearest Neighbor + 2D Convolution
     X = Lambda(resize_img)(X)
-    #X = K.resize_images(X, 2, 2, 'channels_last')
     X = Conv2D(filters = F3, kernel_size = (f, f), strides = (1, 1), padding = 'same', name = conv_name_base + 'C', kernel_initializer = he_normal())(X) 
     X = LeakyReLU()(X)
-    #X = Activation('leakyRelu')(X)
     X = BatchNormalization(axis = 3, name = bn_name_base + 'C')(X)
     
     return X
@@ -194,13 +183,11 @@ def output_block(X, X_shortcut, f, filters, block):
     # First component
     X = Conv2D(filters = F1, kernel_size = (f, f), strides = (1, 1), padding = 'same', name = conv_name_base + 'A', kernel_initializer = he_normal())(X)
     X = LeakyReLU()(X)
-    #X = Activation('leakyRelu')(X)
     X = BatchNormalization(axis = 3, name = bn_name_base + 'A')(X)
     
     # Second component
     X = Conv2D(filters = F2, kernel_size = (f, f), strides = (1, 1), padding = 'same', name = conv_name_base + 'B', kernel_initializer = he_normal())(X)
     X = LeakyReLU()(X)
-    #X = Activation('leakyRelu')(X)
     X = BatchNormalization(axis = 3, name = bn_name_base + 'B')(X)
     
     # Third component

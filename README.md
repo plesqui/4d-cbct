@@ -38,12 +38,13 @@ To this end, we evaluated the performance of our prototype model with the follow
 - Loss C: structural similarity 
 - Loss D: 0.75 * (mean-square error) + 0.25 * (structural similarity)
 
-We assessed the performance of each trained version of our prototype model by evaluating multiple metrics (mean-square error, mean-absolute error, peak signal-to-noise ratio and structural similarity) on the validation dataset. In particular, we computed these metrics on both the entire image of each patient and also within the patient body only. The results are shown in the figures below:
+We assessed the performance of each trained version of our prototype model by evaluating multiple metrics (mean-square error, mean-absolute error, peak signal-to-noise ratio and structural similarity) on the validation dataset. In particular, we computed these metrics on both the entire image of each patient and also within the patient body only. The patient body on each image was segmented using a region growing algorithm (available on the SimpleITK library for python. The code is available in my repository). The results are shown in the four figures below:
 
 ![per](https://github.com/plesqui/4d-cbct/blob/master/metrics_eval1.png?raw=true "Performance assessment")
 
 ![per2](https://github.com/plesqui/4d-cbct/blob/master/metrics_eval2.png?raw=true "Performance assessment")
 
 # Future work
-Our prototype was built to improve the quality of the reconstructed images. One limitation of this approach is that the performance of the model will depend on the quality of the input images. The quality of inputs depends on the method applied to reconstruct the measured projection data. To overcome this limitation, and make our model as general as possible, we are investigating the following research question:  
+Our prototype was built to improve the quality of the reco
+nstructed images. One limitation of this approach is that the performance of the model will depend on the quality of the input images. The quality of inputs depends on the method applied to reconstruct the measured projection data. To overcome this limitation, and make our model as general as possible, we are investigating the following research question:  
 2) Can we build a deep learning model that improves the measured projection data instead (i.e., the sinograms)? How does the performance of such model compares to the performance of our current prototype?

@@ -20,13 +20,28 @@ The data was provided by the SPARE Challenge. The SPARE challenge is led by Dr A
 
 The data consisted of 4-Dimensional cone-beam CT images of 12 patients acquired in 1 minute (sparse input data, suffering from high levels of noise and artifacts), and the corresponding high-quality images (complete output data). These data will be released to the public by the organizers of the challenge in the future.
 
-# Preliminary Results
+## Preliminary Results (Prototype model)
 ![U-Net](https://github.com/plesqui/4d-cbct/blob/master/preliminary.JPG?raw=true "U-Net")
 
 The figure above illustrates the performance of our prototype on images from the validation set. The top-row displays three cone-beam CT slices reconstructed from 1-minute scans (input data). The middle row shows the improvements made by our model (predictions). The bottom row shows the ground-truth (high-quality images).
 
-# Current and future work
-Currently, we are working on the following research questions:
-1) What is the optimum loss-fuction? To this end, we are evaluating the performance of our model with the mean-squared error, the absolute error and the structural similarity index metric as loss-functions.
+# Quantitative assessment of the prototype performance
+In deep learning applications to enhance image data, the mean-square-error loss function (applied on a pixel-by-pixel basis) is often used. However, different groups have shown that the selection of a loss function, more relevant to the imaging-task at hand, can greatly improve the overall performance of the model. For instance, Zhao et al 2015 proposed several alternatives to the mean-square-error loss function for de-noising, super-resolution, and JPEG artifacts removal. The authors proposed a loss function which is a combination of the mean-absolute-error and the structural similarity. Read the study here: https://arxiv.org/abs/1511.08861. 
 
-2) Our prototype was built to improve the quality of the reconstructed images. Can we build a deep learning model that improves the measured projection data instead (i.e., the sinograms)? How does the performance of such model compares to the performance of our current prototype?
+Another very recent study by Taghanaki et al 2018 showed that a simple network with the proper loss function can outperform more complex architectures (e.g. networks with skip connections) in image segmentation tasks. Read their work here: https://arxiv.org/abs/1805.02798
+
+In light of these results, we decided to investigate the following research question:
+1) Using the U-Net architecture, what is the optimum loss-fuction for denoising and artifact removal of 4-D cone-beam CT images? 
+To this end, we evaluated the performance of our prototype model with the following loss functions:
+- Loss A: mean-squared error
+- Loss B: mean-absolute error
+- Loss C: structural similarity 
+- Loss D: 0.75 * (mean-square error) + 0.25 * (structural similarity)
+
+We assessed the performance of each trained version of our prototype model by evaluating multiple metrics (mean-square error, mean-absolute error, peak signal-to-noise ratio and structural similarity) on the validation dataset. In particular, we computed these metrics on both the entire image of each patient and also within the patient body only. The results are shown in the figures below:
+![per](https://github.com/plesqui/4d-cbct/blob/master/metrics_eval1.JPG?raw=true "Performance assessment")
+![per2](https://github.com/plesqui/4d-cbct/blob/master/metrics_eval2.JPG?raw=true "Performance assessment")
+
+# Future work
+Our prototype was built to improve the quality of the reconstructed images. One limitation of this approach is that the performance of the model will depend on the quality of the input images. The quality of inputs depends on the method applied to reconstruct the measured projection data. To overcome this limitation, and make our model as general as possible, we are investigating the following research question:  
+2) Can we build a deep learning model that improves the measured projection data instead (i.e., the sinograms)? How does the performance of such model compares to the performance of our current prototype?

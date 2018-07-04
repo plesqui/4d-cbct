@@ -12,7 +12,6 @@ The figure above shows the architecture of the original 2-D U-Net that was imple
 
 - We have replaced the Maxpooling layers by 2-D Convolutional layers.
 - We have replaced the up-convolution layers by re-size (using nearest neighbours) + 2-D convolutions. This modification is intended to prevent the network from exibiting artifacts typical of deconvolutional layers. A very nice description of this problem can be found here: https://distill.pub/2016/deconv-checkerboard/. 
-- We have replaced the ReLu activations by leaky ReLus.
 - Our input/output corresponds to 448 x 448 cbct axial slices. 
 
 ## The Data
